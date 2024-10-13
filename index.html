@@ -8,21 +8,20 @@
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&display=swap');
         
         /* Body styling for the whole page */
-body {
-    font-family: 'Cormorant Garamond', serif; 
-    text-align: center; 
-    padding: 0;
-    margin: 0;
-    background: url('Images/B1.png') no-repeat center center fixed; 
-    background-size: cover; /* Ensures the background covers the whole screen */
-    min-height: 100vh; /* Ensure the body takes at least the full height of the viewport */
-    width: 100vw; /* Ensure it takes the full width of the viewport */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    scroll-behavior: smooth; 
-    padding-top: 140px; 
-}
+        body {
+            font-family: 'Cormorant Garamond', serif; /* Apply the imported font */
+            text-align: center; /* Center align the text */
+            padding: 20px;
+            margin: 0;
+            background: url('Images/B1.png') no-repeat center center fixed; /* Set background image */
+            background-size: 100%; /* Ensure the background image covers the entire view */
+            min-height: 100vh; /* Minimum height for full-screen layout */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            scroll-behavior: smooth; /* Smooth scrolling for navigation */
+            padding-top: 140px; /* Compensate for fixed header height */
+        }
 
 
         /* Styles for the header section */
