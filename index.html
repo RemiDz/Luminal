@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Human Tools</title>
+    <style>
+        /* Import Google font for styling text */
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&display=swap');
+        
+        /* Body styling for the whole page */
+        body {
+            font-family: 'Cormorant Garamond', serif; /* Apply the imported font */
+            text-align: center; /* Center align the text */
+            padding: 20px;
+            margin: 0;
+            background: url('Images/B1.png') no-repeat center center fixed; /* Set background image */
+            background-size: 100%; /* Ensure the background image covers the entire view */
+            min-height: 100vh; /* Minimum height for full-screen layout */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            scroll-behavior: smooth; /* Smooth scrolling for navigation */
+            padding-top: 140px; /* Compensate for fixed header height */
+        }
+
+        /* Styles for the header section */
+        .header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px; /* Space between header items */
+            flex-wrap: wrap; /* Allow wrapping of items for responsiveness */
+            position: fixed; /* Fix header at the top */
+            top: 0;
+            width: 100%; /* Full width */
+            z-index: 1000; /* High stacking order to keep header above other content */
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+            padding: 10px 0;
+        }
+
+        /* Header items style */
+        .header-item {
+            background: transparent; /* Transparent background */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            cursor: pointer; /* Change cursor to indicate clickability */
+            transition: transform 0.3s ease; /* Smooth scaling on hover */
+            user-select: none; /* Disable text selection on items */
+        }
+
+        /* Hover effect for header items */
+        .header-item:hover {
+            transform: scale(1.1); /* Slight zoom effect on hover */
+        }
+
+        /* Style for the header icons */
+        .header-item img {
+            width: 50px; /* Icon width */
+            height: 50px; /* Icon height */
+            border-radius: 50%; /* Round icons */
+            object-fit: cover; /* Ensure image fits within the circle */
+            margin-bottom: 8px;
+        }
+
+        /* Text styling under icons */
+        .header-item span {
+            font-size: 1em; /* Larger font for readability */
+            font-weight: bold;
+            color: #4e342e; /* Dark brown text color */
+        }
+
+        /* General container for categories */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%; /* Full width */
+            max-width: 1200px; /* Maximum width for better readability */
+            margin: 0 auto; /* Center the container */
+        }
+
+        /* Each category section */
+        .category-container {
+            display: flex;
+            flex-direction: column; /* Stack box and details vertically */
+            align-items: center;    /* Center items horizontally */
+            justify-content: center; /* Center items vertically within the container */
+            font-size: 1.5em; /* Larger font for readability */
+            margin: 20px 0;
+            transition: opacity 0.5s ease-in-out; /* Smooth opacity transition */
+            /* Remove any horizontal transforms */
+        }
+
+        /* Circular boxes for each category */
+        .box {
+            border: 2px solid rgba(255, 255, 255, 0.5); /* Semi-transparent border */
+            padding: 30px;
+            cursor: pointer; /* Indicate clickability */
+            width: 200px; /* Size of the circular box */
+            height: 200px;
+            background-size: cover; /* Cover the entire box with background */
+            background-position: center;
+            color: #fff; /* White text */
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5); /* Shadow for better text contrast */
+            border-radius: 50%; /* Make the box round */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5em; /* Large font inside the box */
+            background-blend-mode: overlay; /* Blending background */
+            user-select: none; /* Disable text selection */
+            transform: scale(1); /* Default scale */
+            transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out; /* Smooth hover effects */
+        }
+
+        /* Scale and shadow effect on hover */
+        .box:hover {
+            transform: scale(1.15); /* Zoom the box */
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4); /* Add a shadow */
+        }
+
+        /* Pulse animation for the active box */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+            100% { transform: scale(1); }
+        }
+
+        /* Apply pulse animation to the selected box */
+        .box.pulsing {
+            animation: pulse 5s infinite; /* Adjust duration as needed */
+        }
+
+        /* Hidden details section */
+        .details {
+            display: none; /* Hide details as we use modal now */
+        }
+
+        /* Individual background images for each category */
+        .instincts { background-image: url('Images/instinct-image-url.jpg'); }
+        .bodySensations { background-image: url('Images/body-sensations-image-url.jpg'); }
+        .feelings { background-image: url('Images/feelings-image-url.jpg'); }
+        .perception { background-image: url('Images/perception-image-url.jpg'); }
+        .emotions { background-image: url('Images/emotions-image-url.jpg'); }
+        .thoughts { background-image: url('Images/thoughts-image-url.jpg'); }
+        .memory { background-image: url('Images/memory-image-url.jpg'); }
+        .intuition { background-image: url('Images/intuition-image-url.jpg'); }
+        .attention { background-image: url('Images/attention-image-url.jpg'); }
+        .awareness { background-image: url('Images/awareness-image-url.jpg'); }
+        .willpower { background-image: url('Images/willpower-image-url.jpg'); }
+        .creativity { background-image: url('Images/creativity-image-url.jpg'); }
+        .imagination { background-image: url('Images/imagination-image-url.jpg'); }
+        .presence { background-image: url('Images/presence-image-url.jpg'); }
+        .compassion { background-image: url('Images/compassion-image-url.jpg'); }
+        .innerPeace { background-image: url('Images/inner-peace-image-url.jpg'); }
+        .wisdom { background-image: url('Images/wisdom-image-url.jpg'); }
+        .consciousness { background-image: url('Images/consciousness-image-url.jpg'); }
+
+        /* Responsive design for smaller screens */
+        @media (max-width: 768px) {
+            /* Adjust container layout */
+            .category-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            /* Adjust details layout */
+            .details {
+                margin-left: 0;
+                margin-top: 10px;
+                width: 100%; /* Full width for mobile */
+            }
+            /* Smaller box size for mobile */
+            .box {
+                width: 150px;
+                height: 150px;
+                padding: 20px;
+                font-size: 1em; /* Smaller font */
+            }
+            /* Adjust header item size */
+            .header-item img {
+                width: 40px;
+                height: 40px;
+            }
+            /* Adjust text size */
+            .header-item span {
+                font-size: 1em;
+            }
+            /* Adjust padding for mobile header */
+            body {
+                padding-top: 180px;
+            }
+            /* Full-width details for mobile */
+            .details.show {
+                width: 100%;
+            }
+        }
+
+        /* Modal Overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            overflow: hidden;
+        }
+
+        .modal-content-wrapper {
+            position: relative;
+            width: 60%;
+            max-height: 100%; /* Increased height */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .modal-content {
+            position: relative;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 100%;
+            max-height: 100%;
+            overflow-y: auto;
+            transform: scale(0);
+            opacity: 0;
+            transform-origin: center center;
+            background-image: linear-gradient(135deg, rgba(244, 231, 247, 0.9), rgba(228, 238, 241, 0.9), rgba(242, 236, 245, 0.9));
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .zoom-in {
+            animation: zoomInModal 0.5s forwards;
+        }
+
+        .zoom-out {
+            animation: zoomOutModal 0.5s forwards;
+        }
+
+        @keyframes zoomInModal {
+            from {
+                transform: scale(0);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes zoomOutModal {
+            from {
+                transform: scale(1);
+                opacity: 1;
+            }
+            to {
+                transform: scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* Enhanced Close Button */
+        .close-button {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            width: 40px;
+            height: 40px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            outline: none;
+            z-index: 10001;
+        }
+
+        .close-button:before, .close-button:after {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 10px;
+            width: 2px;
+            height: 20px;
+            background-color: #4e342e;
+          
+        }
+
+        .close-button:before {
+            transform: rotate(45deg);
+        }
+
+        .close-button:after {
+            transform: rotate(-45deg);
+        }
+
+        .close-button:hover:before, .close-button:hover:after {
+            background-color: #000;
+            transform: rotate(0deg);
+        }
+
+        /* Modal details content */
+        .modal-details-content {
+            color: #4e342e;
+            font-size: 1em;
+            text-align: left;
+            position: relative;
+        }
+
+        /* Sparkling Stars */
+        .star {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background-color: transparent;
+            border-radius: 50%;
+            box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.8);
+            animation: fall 3s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-20vh) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+        }
+
+/* Flexbox for title-container to position image and heading side by side */
+.title-container {
+    display: flex;
+    align-items: center; /* Vertically align the image and heading */
+}
+
+/* Styles for all category images */
+.category-image {
+    width: 50px; /* Adjust size as needed */
+    height: 50px; /* Ensure width and height are equal for a perfect circle */
+    border-radius: 50%; /* Makes the image circular */
+    margin-right: 10px; /* Space between image and heading */
+}
+
+/* Pulse animation for the image container */
+.pulsing {
+    animation: pulse 5s infinite;
+}
+
+/* Pulse animation */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+    100% { transform: scale(1); }
+}
+
+
+
+    </style>
+</head>
+<body>
+
+    <!-- Header with categories and images -->
+    <div class="header">
+        <div class="header-item" onclick="scrollToCategory('consciousness')">
+            <img src="Images/consciousness-image-url.jpg" alt="Consciousness">
+            <span>Consciousness</span>
+        </div>
+        <div class="header-item" onclick="scrollToCategory('wisdom')">
+            <img src="Images/wisdom-image-url.jpg" alt="Wisdom">
+            <span>Wisdom</span>
+        </div>
+        <div class="header-item" onclick="scrollToCategory('innerPeace')">
+            <img src="Images/inner-peace-image-url.jpg" alt="Inner Peace">
+            <span>Inner Peace</span>
+        </div>
+        <div class="header-item" onclick="scrollToCategory('compassion')">
+            <img src="Images/compassion-image-url.jpg" alt="Compassion">
+            <span>Compassion</span>
+        </div>
+        <div class="header-item" onclick="scrollToCategory('presence')">
+            <img src="Images/presence-image-url.jpg" alt="Presence">
+            <span>Presence</span>
+        </div>
+        <div class="header-item" onclick="scrollToCategory('imagination')">
+            <img src="Images/imagination-image-url.jpg" alt="Imagination">
+            <span>Imagination</span>
+        </div>
+        <div class="header-item" onclick="scrollToCategory('creativity')">
+            <img src="Images/creativity-image-url.jpg" alt="Creativity">
+            <span>Creativity</span>
+        </div>
+        <div class="header-item" onclick="scrollToCategory('willpower')">
+            <img src="Images/willpower-image-url.jpg" alt="Willpower">
+            <span>Willpower</span>
+        </div>
+        <div class="header-item" onclick="scrollToCategory('awareness')">
+            <img src="Images/awareness-image-url.jpg" alt="Awareness">
+            <span>Awareness</span>
+        </div>
+        <div class="header-item" onclick="scrollToCategory('attention')">
+            <img src="Images/attention-image-url.jpg" alt="Attention">
+            <span>Attention</span>
+        </div>
+        <div class="header-item" onclick="scrollToCategory('intuition')">
+            <img src="Images/intuition-image-url.jpg" alt="Intuition">
+            <span>Intuition</span>
+        </div>
+        <div class="header-item" onclick="scrollToCategory('memory')">
+            <img src="Images/memory-image-url.jpg" alt="Memory">
+            <span>Memory</span>
+        </div>
+        <div class="header-item" onclick="scrollToCategory('thoughts')">
+            <img src="Images/thoughts-image-url.jpg" alt="Thoughts">
+            <span>Thoughts</span>
+        </div>
+        <div class="header-item" onclick="scrollToCategory('emotions')">
+            <img src="Images/emotions-image-url.jpg" alt="Emotions">
+            <span>Emotions</span>
+        </div>
+        <div class="header-item" onclick="scrollToCategory('perception')">
+            <img src="Images/perception-image-url.jpg" alt="Perception">
+            <span>Perception</span>
+        </div>
+        <div class="header-item" onclick="scrollToCategory('feelings')">
+            <img src="Images/feelings-image-url.jpg" alt="Feelings">
+            <span>Feelings</span>
+        </div>
+        <div class="header-item" onclick="scrollToCategory('bodySensations')">
+            <img src="Images/body-sensations-image-url.jpg" alt="Body Sensations">
+            <span>Body Sensations</span>
+        </div>
+        <div class="header-item" onclick="scrollToCategory('instincts')">
+            <img src="Images/instinct-image-url.jpg" alt="Instincts">
+            <span>Instincts</span>
+        </div>
+    </div>
+    
+
+
+
+
+
+    <div class="container">
+        <!-- Consciousness -->
+        <div id="consciousness" class="category-container">
+            <div class="box consciousness" onclick="toggleDetails('consciousness')">
+                Consciousness
+            </div>
+            <div class="details">
+                <div class="title-container">
+                    <div class="image-container pulsing">
+                        <img src="Images/consciousness-image-url.jpg" alt="Consciousness Image" class="category-image">
+                    </div>
+                    <h1>Consciousness</h1>
+                </div>
+                Consciousness is being deeply aware of yourself, your thoughts, and your life’s purpose. It helps you reflect on what really matters, guiding you to make thoughtful choices that align with your spiritual path.
+                
+                <ul>
+                    <li><strong>Positive Intentions:</strong></li>
+                    <ul>
+                        <li>Being conscious of your life’s purpose helps you make decisions that lead to more meaningful and fulfilling experiences.</li>
+                        <li>Consciously reflecting on your daily thoughts and actions helps you grow spiritually by learning from your experiences.</li>
+                        <li>By setting the intention to live with a deeper sense of awareness, you can focus on what truly brings joy and peace into your life.</li>
+                        <li>Using consciousness to guide your decisions allows you to live with more intention, choosing what is best for your long-term spiritual growth.</li>
+                    </ul>
+                    <li><strong>Negative Intentions:</strong></li>
+                    <ul>
+                        <li>Being overly focused on small problems can make you lose sight of the bigger picture, causing stress and spiritual stagnation.</li>
+                        <li>Ignoring the deeper meaning of your actions can leave you feeling disconnected from your spiritual path.</li>
+                        <li>Letting unconscious habits control your life can stop you from growing spiritually and keep you from reaching your full potential.</li>
+                        <li>Overthinking or worrying about things outside your control can cause anxiety, blocking your ability to focus on spiritual progress.</li>
+                    </ul>
+                </ul>
+        
+                <h4>Luminar’s Conscious Journey</h4>
+                <p><strong>Positive Impact:</strong> Luminar takes time each day to reflect on life’s bigger questions—like what brings true happiness and how to live in line with spiritual values. One morning, Luminar consciously chooses to spend time helping a neighbor instead of worrying about minor work issues. This choice fills Luminar with a sense of purpose and joy, deepening the connection to the spiritual path.</p>
+        
+                <p><strong>Negative Impact:</strong> Another day, Luminar becomes focused on small frustrations—like running late to work or a mistake at the office. These frustrations take over Luminar’s thoughts, causing stress and irritation. Without taking time to reflect on the bigger picture, Luminar feels disconnected and overwhelmed, missing the chance to approach the day with peace and purpose.</p>
+            </div>
+        </div>
+        
+        <div id="wisdom" class="category-container">
+            <div class="box wisdom" onclick="toggleDetails('wisdom')">
+                Wisdom
+            </div>
+            <div class="details">
+                Wisdom is the ability to apply knowledge and experience in a thoughtful and meaningful way, helping you make decisions that are aligned with your spiritual growth. It allows you to see the bigger picture and act with understanding and patience.
+        
+                <ul>
+                    <li><strong>Positive Intentions:</strong></li>
+                    <ul>
+                        <li>By setting the intention to reflect before making decisions, you can act with wisdom, considering the long-term impact on your spiritual journey.</li>
+                        <li>Using wisdom helps you learn from past experiences and apply those lessons to present situations, leading to more thoughtful choices.</li>
+                        <li>Practicing patience in moments of stress allows you to make wise decisions that are grounded in understanding rather than impulse.</li>
+                        <li>By seeking advice from others and listening with an open mind, you can gain wisdom from different perspectives and grow spiritually.</li>
+                    </ul>
+                    <li><strong>Negative Intentions:</strong></li>
+                    <ul>
+                        <li>Reacting impulsively without considering the consequences can lead to regret and prevent you from growing spiritually.</li>
+                        <li>Ignoring the lessons from past experiences may cause you to repeat mistakes, blocking your spiritual development.</li>
+                        <li>Rushing into decisions without reflection can lead to stress and unwise choices that don’t align with your deeper purpose.</li>
+                        <li>Being closed off to advice or new perspectives limits your ability to gain wisdom and see situations clearly, which can hinder growth.</li>
+                    </ul>
+                </ul>
+        
+                <h4>Luminar’s Wise Path</h4>
+                <p><strong>Positive Impact:</strong> Luminar faces a tough decision about a career change. Instead of rushing into it, Luminar takes time to reflect on past experiences and seeks advice from a mentor. This thoughtful approach allows Luminar to make a wise choice that feels aligned with personal and spiritual goals, bringing a sense of peace and clarity.</p>
+        
+                <p><strong>Negative Impact:</strong> Another day, Luminar reacts quickly to a problem without thinking it through, leading to a choice that creates more stress. Luminar realizes that rushing into decisions without reflection causes unnecessary tension and makes it harder to stay on track with spiritual intentions. By practicing more patience, Luminar could have made a wiser, more balanced decision.</p>
+            </div>
+        </div>
+        
+
+        <div id="innerPeace" class="category-container">
+            <div class="box innerPeace" onclick="toggleDetails('innerPeace')">
+                Inner Peace
+            </div>
+            <div class="details">
+                Inner peace is the calm and contentment you feel when you are aligned with your true self and free from the distractions of stress and worry. Achieving inner peace helps you stay centered, no matter what challenges come your way, and is essential for spiritual growth.
+        
+                <ul>
+                    <li><strong>Positive Intentions:</strong></li>
+                    <ul>
+                        <li>By setting the intention to let go of worries and focus on the present, you can create more moments of inner peace and clarity.</li>
+                        <li>Practicing mindfulness and meditation regularly helps you maintain a sense of inner peace, even in stressful situations.</li>
+                        <li>Choosing to respond calmly instead of reacting impulsively to challenges keeps you grounded and connected to your inner peace.</li>
+                        <li>By embracing forgiveness, both for yourself and others, you release the burden of negative emotions, allowing inner peace to flourish.</li>
+                    </ul>
+                    <li><strong>Negative Intentions:</strong></li>
+                    <ul>
+                        <li>Constantly worrying about things you can’t control creates mental and emotional stress, making it difficult to experience inner peace.</li>
+                        <li>Allowing anger or resentment to build up can cloud your mind, causing you to feel restless and disconnected from your inner calm.</li>
+                        <li>Reacting with frustration to life’s ups and downs can disrupt your sense of peace and lead to emotional imbalance.</li>
+                        <li>Focusing on external validation rather than inner fulfillment can keep you from finding the deep peace that comes from within.</li>
+                    </ul>
+                </ul>
+        
+                <h4>Luminar’s Path to Inner Peace</h4>
+                <p><strong>Positive Impact:</strong> Luminar starts each day with a few moments of meditation, focusing on breathing and letting go of any worries. This practice helps Luminar feel calm and centered throughout the day. Later, when faced with a stressful situation at work, Luminar chooses to stay calm and approach the problem with a peaceful mindset, leading to a positive outcome.</p>
+        
+                <p><strong>Negative Impact:</strong> On another day, Luminar gets caught up in worry about the future, losing focus on the present. This constant worry leads to stress and frustration, making it hard for Luminar to find peace in everyday activities. Luminar realizes that letting go of worry and focusing on what can be controlled would have brought more calm and clarity.</p>
+            </div>
+        </div>
+        
+
+
+        <div id="compassion" class="category-container">
+            <div class="box compassion" onclick="toggleDetails('compassion')">
+                Compassion
+            </div>
+            <div class="details">
+                Compassion is the ability to understand and share the feelings of others, showing kindness and care even in difficult situations. Practicing compassion not only strengthens your relationships but also helps you grow spiritually by fostering connection and empathy.
+        
+                <ul>
+                    <li><strong>Positive Intentions:</strong></li>
+                    <ul>
+                        <li>By showing compassion to others during difficult times, you create deeper bonds and spread kindness, which enhances your spiritual journey.</li>
+                        <li>Setting the intention to offer yourself compassion during moments of struggle helps you heal, learn, and grow without self-judgment.</li>
+                        <li>Practicing compassion helps you understand others' perspectives, making it easier to forgive and release resentment, leading to inner peace.</li>
+                        <li>Compassionate actions, like helping those in need, bring a sense of fulfillment and purpose, aligning you more deeply with your spiritual path.</li>
+                    </ul>
+                    <li><strong>Negative Intentions:</strong></li>
+                    <ul>
+                        <li>Failing to show compassion during conflict can lead to resentment, misunderstanding, and damaged relationships, blocking spiritual growth.</li>
+                        <li>Being overly critical of yourself or others creates barriers to kindness and connection, causing stress and disconnection.</li>
+                        <li>Ignoring the suffering of others can create a sense of isolation and prevent you from experiencing the deep connection that compassion fosters.</li>
+                        <li>Holding onto judgment instead of offering compassion can make it difficult to forgive and find peace, creating emotional and spiritual tension.</li>
+                    </ul>
+                </ul>
+        
+                <h4>Luminar’s Compassionate Heart</h4>
+                <p><strong>Positive Impact:</strong> Luminar notices a friend is going through a tough time and decides to reach out with kind words and support. This act of compassion strengthens their friendship and brings Luminar a sense of purpose and connection. Later, when Luminar makes a mistake at work, instead of being self-critical, Luminar practices self-compassion, allowing space for growth and learning.</p>
+        
+                <p><strong>Negative Impact:</strong> On another day, Luminar is quick to judge someone for their actions without understanding the full situation. This lack of compassion creates tension and prevents Luminar from seeing the other person's struggles. Reflecting on this, Luminar realizes that compassion could have fostered a better connection and helped both parties feel more understood and at peace.</p>
+            </div>
+        </div>
+        
+
+   
+        <div id="presence" class="category-container">
+            <div class="box presence" onclick="toggleDetails('presence')">
+                Presence
+            </div>
+            <div class="details">
+                Presence is the ability to be fully aware and engaged in the current moment. It helps you connect deeply with yourself and others, enhancing your spiritual growth by allowing you to experience life as it unfolds without distractions or judgment.
+        
+                <ul>
+                    <li><strong>Positive Intentions:</strong></li>
+                    <ul>
+                        <li>By being fully present during conversations, you create deeper connections with others and bring more meaning to your relationships.</li>
+                        <li>Setting the intention to be present during meditation or mindfulness practices helps you stay grounded and centered in your spiritual journey.</li>
+                        <li>Being present with your thoughts and emotions allows you to understand them better, bringing clarity and peace to your mind.</li>
+                        <li>Practicing presence in everyday activities, like eating or walking, helps you appreciate the small moments and stay connected to the present.</li>
+                    </ul>
+                    <li><strong>Negative Intentions:</strong></li>
+                    <ul>
+                        <li>Allowing your mind to wander or focus on the past or future makes it hard to fully enjoy the present moment and disrupts your spiritual growth.</li>
+                        <li>Being distracted during important moments, like conversations with loved ones, can create disconnection and weaken relationships.</li>
+                        <li>Focusing too much on future outcomes instead of being present in the process can lead to stress and anxiety, making it difficult to stay grounded.</li>
+                        <li>Ignoring the present moment and always rushing through life can make you feel disconnected from your spiritual purpose and inner peace.</li>
+                    </ul>
+                </ul>
+        
+                <h4>Luminar’s Grounded Presence</h4>
+                <p><strong>Positive Impact:</strong> Luminar takes time each morning to practice presence by focusing on the simple act of breathing. This helps Luminar feel calm and grounded for the day ahead. Later, Luminar engages fully in a conversation with a friend, listening without distractions. This moment of presence strengthens their connection and brings a sense of peace and fulfillment.</p>
+        
+                <p><strong>Negative Impact:</strong> On another day, Luminar spends the afternoon worrying about future projects, unable to focus on the present task. This creates stress and makes Luminar feel disconnected from the current moment. Luminar realizes that by being lost in thoughts about the future, the joy and peace of the present moment are missed, causing frustration and tension.</p>
+            </div>
+        </div>
+              
+
+
+
+        <!-- Imagination -->
+        <div id="imagination" class="category-container">
+            <div class="box imagination" onclick="toggleDetails('imagination')">
+                Imagination
+            </div>
+            <div class="details">
+                Imagination is the ability to think beyond the present moment and picture new ideas, possibilities, or outcomes. It helps you envision your spiritual path, dream about a better future, and creatively solve challenges in daily life.
+                
+                <ul>
+                    <li><strong>Positive Intentions:</strong></li>
+                    <ul>
+                        <li>Using imagination to picture a positive future helps you stay hopeful and motivated, bringing more joy and purpose to your spiritual journey.</li>
+                        <li>Imagining how you can help others in small but meaningful ways allows you to create new opportunities for kindness in your everyday life.</li>
+                        <li>Consciously imagining how your life can improve brings clarity, helping you make better choices that align with your spiritual goals.</li>
+                        <li>Setting the intention to use your imagination to find creative solutions helps you overcome challenges and grow both spiritually and personally.</li>
+                    </ul>
+                    <li><strong>Negative Intentions:</strong></li>
+                    <ul>
+                        <li>Using your imagination to worry about worst-case scenarios can cause unnecessary stress and fear, blocking your spiritual growth.</li>
+                        <li>Allowing your imagination to dwell on negative outcomes makes it harder to see the good in life and can lead to feelings of hopelessness.</li>
+                        <li>Daydreaming too much about unrealistic expectations can distract you from focusing on the present, keeping you from making real progress.</li>
+                        <li>Imagination used without mindfulness can lead to frustration when reality doesn’t match up with imagined outcomes, creating disappointment.</li>
+                    </ul>
+                </ul>
+        
+                <h4>Luminar’s Creative Spirit</h4>
+                <p><strong>Positive Impact:</strong> Luminar loves using imagination to dream big. One day, after feeling stuck at work, Luminar imagines a new way to approach a project, combining creativity with a fresh idea. This shift in thinking helps Luminar solve the problem and impress the team. Later, Luminar imagines how small acts of kindness, like buying coffee for a friend, can brighten someone's day, and these ideas inspire Luminar to take positive actions.</p>
+        
+                <p><strong>Negative Impact:</strong> On a different day, Luminar finds it hard to stop imagining everything that could go wrong in life. These thoughts make Luminar feel anxious and unable to focus. Luminar begins to feel overwhelmed by fears that haven’t even happened yet, and this negative use of imagination causes stress and keeps Luminar from enjoying the present moment.</p>
+            </div>
+        </div>
+        
+        
+
+        <div id="creativity" class="category-container">
+            <div class="box creativity" onclick="toggleDetails('creativity')">
+                Creativity
+            </div>
+            <div class="details">
+                Creativity is the ability to think outside the box, find new solutions, and express yourself in unique ways. It plays a vital role in your spiritual growth by helping you explore new perspectives and connect with deeper aspects of your inner self.
+        
+                <ul>
+                    <li><strong>Positive Intentions:</strong></li>
+                    <ul>
+                        <li>Using creativity to solve challenges helps you approach life with a fresh perspective, staying flexible and open to spiritual growth.</li>
+                        <li>Setting the intention to express yourself creatively, whether through art, writing, or other outlets, helps you connect with your inner self and unlock deeper insights.</li>
+                        <li>Applying creativity in daily life, like trying new approaches to routines or problems, brings more joy and excitement to your spiritual journey.</li>
+                        <li>By allowing creativity to flow, you can find unique ways to connect with others and build meaningful relationships on a spiritual level.</li>
+                    </ul>
+                    <li><strong>Negative Intentions:</strong></li>
+                    <ul>
+                        <li>Suppressing your creativity or ignoring it can lead to feelings of frustration or stagnation, blocking your ability to grow spiritually.</li>
+                        <li>Fear of failure or judgment can prevent you from expressing your creative side, keeping you stuck in routine and limiting your spiritual exploration.</li>
+                        <li>Relying too much on rigid thinking can make it harder to find innovative solutions or new ways to approach your spiritual path.</li>
+                        <li>Being closed off to creativity can reduce your ability to embrace new experiences and ideas, causing spiritual stagnation.</li>
+                    </ul>
+                </ul>
+        
+                <h4>Luminar’s Creative Spirit</h4>
+                <p><strong>Positive Impact:</strong> Luminar faces a challenge at work that seems overwhelming at first. Instead of getting stuck, Luminar taps into creativity to find a new way to solve the problem. This creative approach leads to success and leaves Luminar feeling more connected to a sense of purpose and fulfillment. Later, Luminar expresses creativity through a small painting project, bringing peace and joy into the day.</p>
+        
+                <p><strong>Negative Impact:</strong> Another day, Luminar feels uninspired and avoids trying anything new, sticking to the usual routine. Over time, this lack of creativity leads to frustration and boredom, making it harder to feel connected to the spiritual journey. Luminar realizes that embracing creativity would have brought more joy and helped overcome the sense of stagnation.</p>
+            </div>
+        </div>
+                
+        
+    
+        <!-- Willpower -->
+        <div id="willpower" class="category-container">
+            <div class="box willpower" onclick="toggleDetails('willpower')">
+                Willpower
+            </div>
+            <div class="details">
+                Willpower is your inner strength that helps you make choices and follow through, even when it’s difficult. It allows you to stay on track with your spiritual goals and make decisions that align with your higher purpose, especially when facing challenges.
+        
+                <ul>
+                    <li><strong>Positive Intentions:</strong></li>
+                    <ul>
+                        <li>Using willpower to stick with your spiritual practices, like meditation or prayer, even when you're tired, helps you grow and find inner peace.</li>
+                        <li>By choosing to stay calm and patient in a stressful situation, you use willpower to act in line with your spiritual intentions.</li>
+                        <li>Setting the intention to make healthier choices, like eating well or exercising, strengthens your willpower and contributes to both physical and spiritual well-being.</li>
+                        <li>Consciously using willpower to avoid negative habits or distractions helps you stay focused on what really matters in your spiritual journey.</li>
+                    </ul>
+                    <li><strong>Negative Intentions:</strong></li>
+                    <ul>
+                        <li>Giving in to distractions or temptations weakens your willpower over time, making it harder to stay aligned with your spiritual goals.</li>
+                        <li>Choosing short-term comfort over long-term growth can leave you feeling disconnected from your deeper purpose and intentions.</li>
+                        <li>Letting emotions control your actions during stressful moments can cause regret and block your spiritual progress.</li>
+                        <li>When you don’t practice willpower regularly, it becomes harder to resist temptations, leading to unhealthy habits that slow your spiritual growth.</li>
+                    </ul>
+                </ul>
+        
+                <h4>Luminar’s Strength Within</h4>
+                <p><strong>Positive Impact:</strong> Luminar wakes up feeling tired but decides to meditate for 10 minutes anyway, using willpower to stay committed to this spiritual practice. Afterward, Luminar feels more at peace and ready for the day. Later, when faced with a stressful situation at work, Luminar uses willpower to stay calm and respond thoughtfully, staying in line with spiritual intentions.</p>
+        
+                <p><strong>Negative Impact:</strong> Another day, Luminar feels the urge to skip the usual meditation practice to watch TV instead. This small choice makes it harder to focus and find peace later in the day. When a problem arises later, Luminar reacts out of frustration, realizing afterward that lacking willpower in small moments can make staying spiritually centered much harder.</p>
+            </div>
+        </div>
+        
+
+        <!-- Awareness -->
+        <div id="awareness" class="category-container">
+            <div class="box awareness" onclick="toggleDetails('awareness')">
+                Awareness
+            </div>
+            <div class="details">
+                Awareness is the ability to notice your thoughts, feelings, and surroundings without being overwhelmed by them. It helps you stay present, mindful, and grounded, guiding your spiritual growth by keeping you in touch with what’s happening in the moment.
+                
+                <ul>
+                    <li><strong>Positive Intentions:</strong></li>
+                    <ul>
+                        <li>Staying aware of your emotions in stressful situations helps you stay calm, leading to healthier responses and more inner peace.</li>
+                        <li>Being aware of how your words and actions affect others allows you to show kindness and build stronger, more positive relationships.</li>
+                        <li>Practicing mindfulness, like focusing on your breath or surroundings, helps you stay grounded and spiritually centered.</li>
+                        <li>Setting the intention to notice negative thoughts as they arise gives you the power to let them go and focus on more positive thinking.</li>
+                    </ul>
+                    <li><strong>Negative Intentions:</strong></li>
+                    <ul>
+                        <li>Not being aware of your feelings can lead to reacting out of frustration, which can hurt relationships and cause inner conflict.</li>
+                        <li>Being unaware of your surroundings might make you miss meaningful moments or connections with others throughout the day.</li>
+                        <li>Letting your thoughts run on autopilot without awareness can keep you stuck in negative thinking, blocking your spiritual progress.</li>
+                        <li>When awareness is lacking, you may make decisions without thinking, leading to regrets and missed opportunities for growth.</li>
+                    </ul>
+                </ul>
+        
+                <h4>Luminar’s Awareness Journey</h4>
+                <p><strong>Positive Impact:</strong> Luminar has a busy life with work and family. One morning, feeling stressed about the day ahead, Luminar takes a few minutes to sit quietly and focus on breathing. This moment of awareness helps Luminar feel calm and prepared. Later in the day, a coworker is upset, and because Luminar is aware of their emotions, Luminar listens patiently and offers support, which strengthens their connection.</p>
+        
+                <p><strong>Negative Impact:</strong> On another day, Luminar rushes out the door, feeling overwhelmed by work tasks and messages on the phone. Without awareness of these feelings, Luminar snaps at a family member who asks a simple question. This unawareness creates tension at home, and Luminar later feels regret, realizing the situation could have been handled with more patience if there had been awareness of the stress from the start.</p>
+            </div>
+        </div>
+
+        <!-- Attention -->
+        <div id="attention" class="category-container">
+            <div class="box attention" onclick="toggleDetails('attention')">
+                Attention
+            </div>
+            <div class="details">
+                Attention is your ability to focus on one thing at a time, helping you give your full energy and presence to what truly matters. It allows you to stay mindful, make better decisions, and connect more deeply with your spiritual journey.
+        
+                <ul>
+                    <li><strong>Positive Intentions:</strong></li>
+                    <ul>
+                        <li>Focusing your attention on a task with full presence helps you do it with care, which brings more peace and satisfaction to your day.</li>
+                        <li>By giving full attention to conversations, you can listen deeply and build stronger relationships, creating more meaningful connections.</li>
+                        <li>Setting the intention to focus on your breath during meditation helps calm your mind and brings you closer to your spiritual center.</li>
+                        <li>Focusing your attention on positive thoughts and intentions helps you feel more aligned with your spiritual goals and inner peace.</li>
+                    </ul>
+                    <li><strong>Negative Intentions:</strong></li>
+                    <ul>
+                        <li>Allowing distractions, like phone notifications, to take away your attention can make you feel scattered and unfocused, causing stress.</li>
+                        <li>When your attention is divided, you might miss important moments or fail to fully appreciate what’s happening around you.</li>
+                        <li>Focusing too much on negative thoughts or worries can drain your energy and take you away from your spiritual goals.</li>
+                        <li>Letting your attention jump between tasks can lead to mistakes and frustration, making it harder to achieve spiritual balance.</li>
+                    </ul>
+                </ul>
+        
+                <h4>Luminar’s Focused Path</h4>
+                <p><strong>Positive Impact:</strong> Luminar decides to start each morning with full attention on one peaceful activity, like drinking tea mindfully or reading something inspirational. By focusing on these small, intentional moments, Luminar feels calm and centered throughout the day. Later, while talking to a friend, Luminar gives full attention to listening, which helps the friend feel heard and deepens their bond.</p>
+        
+                <p><strong>Negative Impact:</strong> Another day, Luminar tries to juggle too many things at once—scrolling through the phone during lunch, answering emails while talking to a coworker. This divided attention leaves Luminar feeling stressed and disconnected. Without focusing fully on one thing at a time, Luminar misses out on the opportunity to enjoy the present moment and ends the day feeling exhausted.</p>
+            </div>
+        </div>
+        
+
+        <!-- Intuition -->
+        <div id="intuition" class="category-container">
+            <div class="box intuition" onclick="toggleDetails('intuition')">
+                Intuition
+            </div>
+            <div class="details">
+                Intuition is the inner sense or “gut feeling” that guides you without needing to think through every detail. It often helps you make quick, spiritually aligned decisions based on a deeper understanding that goes beyond logic.
+        
+                <ul>
+                    <li><strong>Positive Intentions:</strong></li>
+                    <ul>
+                        <li>Trusting your intuition can help you make decisions that feel right for your spiritual growth, even if you can’t explain why at the moment.</li>
+                        <li>Setting the intention to listen to your intuition more often can guide you toward people or opportunities that support your spiritual journey.</li>
+                        <li>Using intuition in everyday situations, like choosing how to respond to a difficult conversation, can help you stay calm and centered.</li>
+                        <li>By tuning into your intuition, you can quickly sense when something isn’t right and avoid situations or choices that might lead you off your spiritual path.</li>
+                    </ul>
+                    <li><strong>Negative Intentions:</strong></li>
+                    <ul>
+                        <li>Ignoring your intuition or second-guessing yourself can lead to missed opportunities or choices that don’t align with your spiritual goals.</li>
+                        <li>Not trusting your inner sense can cause confusion and stress, making it harder to make decisions that feel aligned with your true self.</li>
+                        <li>When you disregard your intuition, you might end up in situations that don’t feel right, causing discomfort and blocking spiritual growth.</li>
+                        <li>Overanalyzing instead of trusting your instincts can make you feel stuck, preventing you from moving forward with clarity and confidence.</li>
+                    </ul>
+                </ul>
+        
+                <h4>Luminar’s Inner Knowing</h4>
+                <p><strong>Positive Impact:</strong> Luminar is faced with a tough decision about a new job offer. Instead of overthinking it, Luminar takes a quiet moment to tune into intuition. The gut feeling says it’s the right opportunity, so Luminar accepts, feeling confident in the choice. Later, when spending time with friends, Luminar uses intuition to sense when someone needs extra support, offering help at the perfect moment.</p>
+        
+                <p><strong>Negative Impact:</strong> On another day, Luminar feels unsure about a social event but ignores the gut feeling and goes anyway. The experience ends up being uncomfortable and draining, making Luminar realize that ignoring intuition can lead to regret. Luminar decides to trust that inner voice more in the future.</p>
+            </div>
+        </div>
+
+
+        <!-- Memory -->
+        <div id="memory" class="category-container">
+            <div class="box memory" onclick="toggleDetails('memory')">
+                Memory
+            </div>
+            <div class="details">
+                Memory is your ability to store and recall past experiences and lessons. It helps guide your present actions by reminding you of what you’ve learned and how you’ve grown, both spiritually and personally.
+        
+                <ul>
+                    <li><strong>Positive Intentions:</strong></li>
+                    <ul>
+                        <li>Using your memory to recall positive experiences helps you stay motivated and keeps you focused on what’s important in your spiritual growth.</li>
+                        <li>Remembering lessons from past challenges can help you handle current situations with more wisdom and patience.</li>
+                        <li>Reflecting on good memories, like moments of peace or connection with loved ones, can bring more joy and gratitude into your present life.</li>
+                        <li>By setting the intention to remember your spiritual lessons, you can avoid repeating past mistakes and continue to grow on your spiritual path.</li>
+                    </ul>
+                    <li><strong>Negative Intentions:</strong></li>
+                    <ul>
+                        <li>Focusing too much on painful or negative memories can cause unnecessary stress and prevent you from moving forward spiritually.</li>
+                        <li>Holding onto grudges from past experiences can create resentment, blocking your ability to forgive and find inner peace.</li>
+                        <li>Letting negative memories dominate your thoughts can make you feel stuck in the past, preventing you from fully enjoying the present moment.</li>
+                        <li>When you focus on past failures without reflecting on what you’ve learned, it can weaken your confidence and hinder spiritual growth.</li>
+                    </ul>
+                </ul>
+        
+                <h4>Luminar’s Reflective Path</h4>
+                <p><strong>Positive Impact:</strong> Luminar often reflects on past experiences to learn valuable lessons. When faced with a difficult situation, Luminar remembers how similar challenges were handled in the past and uses that wisdom to stay calm and make better decisions. Later, Luminar recalls a peaceful moment from a past vacation, bringing a sense of calm and gratitude into the day.</p>
+        
+                <p><strong>Negative Impact:</strong> Another day, Luminar can’t stop thinking about a past argument with a friend. These negative memories cause frustration and prevent Luminar from enjoying the present. Instead of focusing on healing, Luminar gets stuck in the hurt, making it harder to move forward with peace and forgiveness.</p>
+            </div>
+        </div>
+        
+    
+        <!-- Thoughts -->
+        <div id="thoughts" class="category-container">
+            <div class="box thoughts" onclick="toggleDetails('thoughts')">
+                Thoughts
+            </div>
+            <div class="details">
+                Thoughts are the ideas and beliefs that shape how you see the world and yourself. They can either help you grow spiritually or hold you back, depending on whether your thoughts are positive and supportive or negative and limiting.
+        
+                <ul>
+                    <li><strong>Positive Intentions:</strong></li>
+                    <ul>
+                        <li>Focusing on positive thoughts, like gratitude and kindness, helps you stay connected to your spiritual path and brings more joy into your life.</li>
+                        <li>By setting the intention to be mindful of your thoughts, you can catch negative thinking patterns and replace them with more helpful and peaceful ideas.</li>
+                        <li>Thinking about your spiritual goals regularly helps you stay motivated and aligned with your deeper purpose.</li>
+                        <li>Consciously choosing to have thoughts of compassion for yourself and others creates more harmony and peace in your interactions.</li>
+                    </ul>
+                    <li><strong>Negative Intentions:</strong></li>
+                    <ul>
+                        <li>Dwelling on negative thoughts, like self-doubt or resentment, can drain your energy and take you away from your spiritual intentions.</li>
+                        <li>Allowing negative thinking to go unchecked can lead to stress and anxiety, blocking your progress on your spiritual journey.</li>
+                        <li>Constantly focusing on worries or fears can prevent you from enjoying the present moment and seeing the good in life.</li>
+                        <li>Unconscious negative thoughts can create a cycle of negativity that makes it harder to feel at peace and connected to your spiritual purpose.</li>
+                    </ul>
+                </ul>
+        
+                <h4>Luminar’s Mindful Thoughts</h4>
+                <p><strong>Positive Impact:</strong> Luminar starts the day by thinking about what to be grateful for—family, health, and the chance to help others. This simple shift in focus makes Luminar feel more peaceful and happy throughout the day. Later, when faced with a tough situation, Luminar chooses to focus on finding solutions instead of worrying, staying calm and clear-minded.</p>
+        
+                <p><strong>Negative Impact:</strong> Another day, Luminar gets caught up in worrying about things that haven’t even happened yet. These negative thoughts create anxiety and make it hard to focus on the present. Luminar starts feeling overwhelmed, realizing that focusing too much on worries leads to stress and disconnects from spiritual peace.</p>
+            </div>
+        </div>
+        
+    
+        <!-- Emotions -->
+        <div id="emotions" class="category-container">
+            <div class="box emotions" onclick="toggleDetails('emotions')">
+                Emotions
+            </div>
+            <div class="details">
+                Emotions are the feelings that arise in response to events, thoughts, or experiences. They can guide you toward a deeper understanding of yourself and your spiritual path, or they can overwhelm you if left unchecked. Learning to manage emotions is key to spiritual growth and inner peace.
+        
+                <ul>
+                    <li><strong>Positive Intentions:</strong></li>
+                    <ul>
+                        <li>By allowing yourself to fully feel emotions like joy or love, you deepen your spiritual connection and appreciation for life’s blessings.</li>
+                        <li>Setting the intention to acknowledge and process difficult emotions, like sadness or anger, helps you heal and move forward peacefully.</li>
+                        <li>Learning to express emotions in a healthy way fosters stronger relationships, creating more harmony and understanding with others.</li>
+                        <li>Using emotions as signals helps you recognize areas of your life that need attention, guiding you to make positive changes for your spiritual well-being.</li>
+                    </ul>
+                    <li><strong>Negative Intentions:</strong></li>
+                    <ul>
+                        <li>Letting emotions control your actions, like reacting in anger or frustration, can damage relationships and create spiritual turmoil.</li>
+                        <li>Ignoring or suppressing emotions can lead to stress and prevent you from healing or resolving inner conflicts.</li>
+                        <li>Allowing fear or worry to dominate your emotional state can block you from seeing opportunities for growth and peace.</li>
+                        <li>Holding onto negative emotions, like resentment or jealousy, can weigh you down, preventing you from moving forward on your spiritual journey.</li>
+                    </ul>
+                </ul>
+        
+                <h4>Luminar’s Emotional Awareness</h4>
+                <p><strong>Positive Impact:</strong> Luminar feels a wave of frustration after a long, stressful day. Instead of ignoring it, Luminar takes a moment to breathe and acknowledge the emotion. By sitting with it, Luminar realizes it’s a signal to rest and take care of personal needs. This awareness helps Luminar release the frustration and feel more at peace by the end of the evening.</p>
+        
+                <p><strong>Negative Impact:</strong> On another day, Luminar lets anger take over after a disagreement with a friend. Without pausing to process the emotion, Luminar reacts with harsh words, causing hurt and tension in the relationship. Later, Luminar regrets this and realizes that reacting impulsively with strong emotions only leads to more conflict and frustration, making spiritual peace harder to achieve.</p>
+            </div>
+        </div>
+
+                <!-- Perception -->
+                <div id="perception" class="category-container">
+                    <div class="box perception" onclick="toggleDetails('perception')">
+                        Perception
+                    </div>
+                    <div class="details">
+                        Perception is how you interpret the world around you through your senses, thoughts, and experiences. It shapes how you understand situations and people, influencing your spiritual growth by helping you see things clearly or, sometimes, through a distorted lens.
+                
+                        <ul>
+                            <li><strong>Positive Intentions:</strong></li>
+                            <ul>
+                                <li>By perceiving situations with an open mind, you can better understand others and respond with kindness and compassion.</li>
+                                <li>Setting the intention to see the good in people and events helps you stay positive and spiritually connected, even in difficult situations.</li>
+                                <li>Perceiving life’s challenges as opportunities for growth allows you to stay calm and focused on your spiritual path, even during tough times.</li>
+                                <li>Being mindful of your perceptions can help you shift away from negative thinking and focus on what truly matters for your peace and well-being.</li>
+                            </ul>
+                            <li><strong>Negative Intentions:</strong></li>
+                            <ul>
+                                <li>Perceiving situations negatively or assuming the worst can lead to misunderstandings, causing stress and conflict in your spiritual journey.</li>
+                                <li>Allowing your perception to be clouded by past experiences or judgments can block you from seeing new possibilities or learning from others.</li>
+                                <li>Seeing challenges as problems rather than opportunities can make it harder to grow spiritually, leaving you feeling stuck and frustrated.</li>
+                                <li>When you hold onto negative perceptions of yourself or others, it becomes difficult to find peace and forgiveness, creating barriers to spiritual progress.</li>
+                            </ul>
+                        </ul>
+                
+                        <h4>Luminar’s Clear Vision</h4>
+                        <p><strong>Positive Impact:</strong> One day, Luminar encounters a disagreement at work. Instead of assuming bad intentions, Luminar chooses to perceive the situation with an open mind. This shift in perception helps Luminar stay calm and find a peaceful resolution. Later, Luminar reflects on how seeing challenges as opportunities has helped in personal growth, staying grounded on the spiritual path.</p>
+                
+                        <p><strong>Negative Impact:</strong> Another day, Luminar feels frustrated when a friend cancels plans. Instead of seeing it as a chance for flexibility, Luminar perceives it negatively and feels upset. This negative perception leads to tension, making it hard for Luminar to stay calm and present. Later, Luminar realizes that changing perception could have prevented unnecessary stress and kept the peace.</p>
+                    </div>
+                </div>
+
+        <div id="feelings" class="category-container">
+            <div class="box feelings" onclick="toggleDetails('feelings')">
+                Feelings
+            </div>
+            <div class="details">
+                Feelings are the emotions you experience in response to events, thoughts, and interactions. They are an important part of your inner life and can guide you toward greater spiritual awareness if you learn to understand and manage them with intention.
+        
+                <ul>
+                    <li><strong>Positive Intentions:</strong></li>
+                    <ul>
+                        <li>By recognizing and accepting your feelings, you can better understand yourself and stay connected to your spiritual journey.</li>
+                        <li>Setting the intention to express feelings like gratitude and love helps you build stronger relationships and foster inner peace.</li>
+                        <li>Using feelings as a guide helps you know when to take a step back, reflect, and make choices that support your spiritual growth.</li>
+                        <li>By tuning into positive feelings like joy and calm, you can deepen your spiritual connection and appreciate the beauty in the present moment.</li>
+                    </ul>
+                    <li><strong>Negative Intentions:</strong></li>
+                    <ul>
+                        <li>Ignoring or suppressing feelings can lead to emotional tension and make it difficult to find peace or balance in your spiritual life.</li>
+                        <li>Letting negative feelings like anger or frustration control your reactions can damage relationships and create inner turmoil.</li>
+                        <li>Allowing feelings of fear or anxiety to dominate can keep you from taking risks or exploring new spiritual opportunities.</li>
+                        <li>Being overwhelmed by feelings without understanding their source can lead to confusion and block your spiritual growth.</li>
+                    </ul>
+                </ul>
+        
+                <h4>Luminar’s Emotional Journey</h4>
+                <p><strong>Positive Impact:</strong> Luminar notices a deep feeling of gratitude while spending time with loved ones. By fully embracing this feeling, Luminar feels more connected and at peace. Later, when faced with a challenge at work, Luminar allows the feeling of calm to guide decision-making, resulting in a balanced and thoughtful response that strengthens spiritual alignment.</p>
+        
+                <p><strong>Negative Impact:</strong> Another day, Luminar feels overwhelmed with frustration after a difficult conversation. Instead of pausing to reflect on the feelings, Luminar reacts with anger, creating tension with a close friend. This emotional reaction causes regret, and Luminar realizes that managing feelings thoughtfully could have prevented the conflict and kept the friendship strong.</p>
+            </div>
+        </div>
+        
+        <!-- Body Sensations -->
+        <div id="bodySensations" class="category-container">
+            <div class="box bodySensations" onclick="toggleDetails('bodySensations')">
+                Body Sensations
+            </div>
+            <div class="details">
+                Body sensations are the physical feelings you experience, like hunger, pain, or fatigue. These sensations are signals from your body, helping you stay connected to your physical and spiritual well-being by guiding you to take care of your needs.
+        
+                <ul>
+                    <li><strong>Positive Intentions:</strong></li>
+                    <ul>
+                        <li>Listening to your body’s signals, like hunger or tiredness, helps you stay healthy and maintain a balanced, peaceful lifestyle.</li>
+                        <li>By setting the intention to rest when your body feels fatigued, you can recharge both physically and spiritually, avoiding burnout.</li>
+                        <li>Being mindful of body sensations, like feeling tension or discomfort, can help you identify stress and guide you to take steps to relax and find peace.</li>
+                        <li>Tuning into positive sensations, like feeling warmth or calm, can enhance your appreciation for the present moment and deepen your spiritual connection.</li>
+                    </ul>
+                    <li><strong>Negative Intentions:</strong></li>
+                    <ul>
+                        <li>Ignoring body sensations, like pain or exhaustion, can lead to physical and emotional burnout, making it harder to focus on spiritual growth.</li>
+                        <li>Pushing through hunger or fatigue without listening to your body’s needs can cause irritability and stress, impacting your well-being.</li>
+                        <li>Allowing tension or discomfort to go unchecked can cause ongoing stress, making it difficult to find inner peace and relaxation.</li>
+                        <li>Neglecting body sensations can disconnect you from your physical needs, which can lead to feelings of disconnection from your spiritual path as well.</li>
+                    </ul>
+                </ul>
+        
+                <h4>Luminar’s Body Awareness</h4>
+                <p><strong>Positive Impact:</strong> After a long day of work, Luminar feels tired and notices some tension in the body. Instead of pushing through it, Luminar chooses to rest, stretching and meditating to release the tension. By listening to the body’s signals, Luminar feels rejuvenated and more at peace, staying connected to both physical and spiritual well-being.</p>
+        
+                <p><strong>Negative Impact:</strong> Another day, Luminar ignores signs of fatigue and continues working late into the night. The next day, Luminar feels exhausted and irritable, finding it hard to focus or enjoy the day. By not paying attention to body sensations, Luminar’s energy is drained, making it harder to stay connected to the spiritual path.</p>
+            </div>
+        </div>
+        
+    
+        <!-- Instincts -->
+        <div id="instincts" class="category-container">
+            <div class="box instincts" onclick="toggleDetails('instincts')">
+                Instincts
+            </div>
+            <div class="details">
+                Instincts are natural reactions or impulses that help you respond quickly to situations, often focused on survival or self-preservation. While instincts can protect you, it’s important to balance them with mindfulness to avoid acting out of fear or impulse in ways that block spiritual growth.
+        
+                <ul>
+                    <li><strong>Positive Intentions:</strong></li>
+                    <ul>
+                        <li>Using instincts in dangerous situations can help you react quickly and protect yourself, ensuring safety and peace of mind.</li>
+                        <li>Setting the intention to trust your instincts when something feels off can guide you to make safer and more aligned decisions in life.</li>
+                        <li>Balancing instincts with mindfulness allows you to respond wisely to challenges, staying connected to your spiritual path while acting swiftly.</li>
+                        <li>By trusting positive instincts, like the drive to connect with others, you can create stronger relationships and build a supportive spiritual community.</li>
+                    </ul>
+                    <li><strong>Negative Intentions:</strong></li>
+                    <ul>
+                        <li>Letting fear-based instincts control your reactions can cause unnecessary stress and make it hard to stay calm or centered spiritually.</li>
+                        <li>Acting impulsively out of instinct, without thinking, can lead to regrets or conflicts, making spiritual peace harder to achieve.</li>
+                        <li>Overreacting to non-threatening situations by following survival instincts can create tension and block your ability to connect with others.</li>
+                        <li>Ignoring your instincts when they signal danger can put you in harmful situations, causing physical and emotional distress.</li>
+                    </ul>
+                </ul>
+        
+                <h4>Luminar’s Natural Instincts</h4>
+                <p><strong>Positive Impact:</strong> While walking home late at night, Luminar senses something feels off and decides to change the route. Trusting this instinct brings a sense of safety and peace. Later, Luminar notices a natural instinct to reach out and help a friend in need. By trusting this positive instinct, Luminar strengthens the friendship and deepens spiritual connections.</p>
+        
+                <p><strong>Negative Impact:</strong> Another day, Luminar reacts impulsively to a stressful situation at work, letting frustration take over. This instinctive response creates tension with coworkers and leaves Luminar feeling disconnected from the peaceful, mindful approach that usually helps in difficult times. Luminar realizes that acting out of instinct alone, without mindfulness, can lead to regret and conflict.</p>
+            </div>
+        </div>
+
+
+
+
+
+
+    
+    <!-- Modal overlay -->
+    <div id="modal-overlay" class="modal-overlay">
+        <div class="modal-content-wrapper">
+            <!---------
+            <button class="close-button" onclick="closeModal()"></button>
+            -------->
+            <div class="modal-content">
+                <div class="modal-details-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to handle smooth scrolling to categories and start pulsing the box
+        function scrollToCategory(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                // Close all open details
+                const allContainers = document.querySelectorAll('.category-container');
+                const allBoxes = document.querySelectorAll('.box');
+
+                allContainers.forEach(cont => {
+                    const detail = cont.querySelector('.details');
+                    if (detail) {
+                        detail.classList.remove('show');
+                        detail.style.maxHeight = null; // Reset max-height
+                    }
+                    cont.classList.remove('show');
+                });
+
+                // Remove 'pulsing' class from all boxes
+                allBoxes.forEach(box => box.classList.remove('pulsing'));
+
+                // Scroll to the selected category
+                element.scrollIntoView({ behavior: "smooth", block: "center" });
+
+                // Add 'pulsing' class to the selected box
+                const boxElement = element.querySelector('.box');
+                if (boxElement) {
+                    boxElement.classList.add('pulsing');
+                }
+            }
+        }
+
+        let scale = 1;
+        let growing = true;
+        let speed = 0.00012;
+        let maxScale = 1.09;
+        let minScale = 1;
+        let holdTime = 0;
+        let hold = false;
+        let holdTimeout;
+
+        function pulseBackground() {
+            const body = document.body;
+
+            if (!hold) {
+                if (growing) {
+                    scale += speed;
+                    if (scale >= maxScale) {
+                        growing = false;
+                        hold = true;
+                        holdTimeout = setTimeout(() => hold = false, holdTime);
+                    }
+                } else {
+                    scale -= speed;
+                    if (scale <= minScale) {
+                        growing = true;
+                        hold = true;
+                        holdTimeout = setTimeout(() => hold = false, holdTime);
+                    }
+                }
+
+                body.style.backgroundSize = `${scale * 100}%`;
+            }
+
+            requestAnimationFrame(pulseBackground);
+        }
+
+        requestAnimationFrame(pulseBackground);
+
+        // Function to toggle the display of details when a box is clicked
+        function toggleDetails(id) {
+            const container = document.getElementById(id);
+            const detailElement = container.querySelector('.details');
+            const content = detailElement.innerHTML;
+            openModal(content);
+
+            // Remove 'pulsing' class from all boxes
+            const allBoxes = document.querySelectorAll('.box');
+            allBoxes.forEach(box => box.classList.remove('pulsing'));
+
+            // Add 'pulsing' class to the clicked box
+            const boxElement = container.querySelector('.box');
+            if (boxElement) {
+                boxElement.classList.add('pulsing');
+            }
+        }
+
+        function openModal(content) {
+            const modalOverlay = document.getElementById('modal-overlay');
+            const modalDetailsContent = modalOverlay.querySelector('.modal-details-content');
+            const modalContent = modalOverlay.querySelector('.modal-content');
+            modalDetailsContent.innerHTML = content;
+
+            // Reset modal content scale and opacity for animation
+            modalContent.style.transform = 'scale(0)';
+            modalContent.style.opacity = '0';
+
+            // Remove 'zoom-out' class if it exists
+            modalContent.classList.remove('zoom-out');
+
+            // Display the modal overlay
+            modalOverlay.style.display = 'flex';
+
+            // Force reflow to ensure animation triggers
+            void modalContent.offsetWidth;
+
+            // Start the zoomIn animation
+            modalContent.classList.add('zoom-in');
+
+            // Add sparkling stars effect
+            createSparklingStars();
+
+            // Close modal when clicking outside content
+            modalOverlay.addEventListener('click', function(event) {
+                if (event.target === modalOverlay) {
+                    closeModal();
+                }
+            });
+        }
+
+        function closeModal() {
+            const modalOverlay = document.getElementById('modal-overlay');
+            const modalContent = modalOverlay.querySelector('.modal-content');
+
+            // Start the zoomOut animation
+            modalContent.classList.remove('zoom-in');
+            modalContent.classList.add('zoom-out');
+
+            setTimeout(() => {
+                // Hide the modal overlay after animation
+                modalOverlay.style.display = 'none';
+
+                // Remove 'zoom-out' class
+                modalContent.classList.remove('zoom-out');
+
+                // Remove sparkling stars
+                removeSparklingStars();
+            }, 500); // Duration of the animation
+
+            // Remove 'pulsing' class from all boxes
+            const allBoxes = document.querySelectorAll('.box');
+            allBoxes.forEach(box => box.classList.remove('pulsing'));
+        }
+
+        // Sparkling stars effect
+        function createSparklingStars() {
+            const modalOverlay = document.getElementById('modal-overlay');
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                star.style.width = star.style.height = Math.random() * 3 + 2 + 'px';
+
+                modalOverlay.appendChild(star);
+            }
+        }
+
+        function removeSparklingStars() {
+            const stars = document.querySelectorAll('.star');
+            stars.forEach(star => star.remove());
+        }
+
+        // Reset scroll position to top on page load
+        window.addEventListener('load', function() {
+            window.scrollTo(0, 0);
+        });
+    </script>
+
+</body>
+</html>
