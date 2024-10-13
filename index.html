@@ -11,17 +11,19 @@
 body {
     font-family: 'Cormorant Garamond', serif; 
     text-align: center; 
-    padding: 20px;
+    padding: 0;
     margin: 0;
     background: url('Images/B1.png') no-repeat center center fixed; 
-    background-size: cover; /* This ensures the background covers the whole screen */
-    min-height: 100vh; 
+    background-size: cover; /* Ensures the background covers the whole screen */
+    min-height: 100vh; /* Ensure the body takes at least the full height of the viewport */
+    width: 100vw; /* Ensure it takes the full width of the viewport */
     display: flex;
     flex-direction: column;
     align-items: center;
     scroll-behavior: smooth; 
     padding-top: 140px; 
 }
+
 
         /* Styles for the header section */
         .header {
@@ -158,44 +160,46 @@ body {
         .wisdom { background-image: url('Images/wisdom-image-url.jpg'); }
         .consciousness { background-image: url('Images/consciousness-image-url.jpg'); }
 
-        /* Responsive design for smaller screens */
-        @media (max-width: 768px) {
-            /* Adjust container layout */
-            .category-container {
-                flex-direction: column;
-                align-items: center;
-            }
-            /* Adjust details layout */
-            .details {
-                margin-left: 0;
-                margin-top: 10px;
-                width: 100%; /* Full width for mobile */
-            }
-            /* Smaller box size for mobile */
-            .box {
-                width: 150px;
-                height: 150px;
-                padding: 20px;
-                font-size: 1em; /* Smaller font */
-            }
-            /* Adjust header item size */
-            .header-item img {
-                width: 40px;
-                height: 40px;
-            }
-            /* Adjust text size */
-            .header-item span {
-                font-size: 1em;
-            }
-            /* Adjust padding for mobile header */
-            body {
-                padding-top: 180px;
-            }
-            /* Full-width details for mobile */
-            .details.show {
-                width: 100%;
-            }
-        }
+* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    /* Adjust container layout */
+    .category-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    /* Adjust details layout */
+    .details {
+        margin-left: 0;
+        margin-top: 10px;
+        width: 100%; /* Full width for mobile */
+    }
+    /* Smaller box size for mobile */
+    .box {
+        width: 150px;
+        height: 150px;
+        padding: 20px;
+        font-size: 1em; /* Smaller font */
+    }
+    /* Adjust header item size */
+    .header-item img {
+        width: 40px;
+        height: 40px;
+    }
+    /* Adjust text size */
+    .header-item span {
+        font-size: 1em;
+    }
+    /* Adjust padding for mobile header */
+    body {
+        background-size: 100% 100%; /* Force the background to fit the full width and height of the screen */
+        background-attachment: scroll; /* Prevent background from being fixed on mobile, which often causes issues */
+        min-height: 100vh; /* Ensure the background covers the full viewport height */
+    }
+    /* Full-width details for mobile */
+    .details.show {
+        width: 100%;
+    }
+}
 
         /* Modal Overlay */
         .modal-overlay {
