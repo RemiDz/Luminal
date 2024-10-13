@@ -23,7 +23,6 @@
             padding-top: 140px; /* Compensate for fixed header height */
         }
 
-
         /* Styles for the header section */
         .header {
             display: flex;
@@ -159,47 +158,44 @@
         .wisdom { background-image: url('Images/wisdom-image-url.jpg'); }
         .consciousness { background-image: url('Images/consciousness-image-url.jpg'); }
 
-* Responsive design for smaller screens */
-@media (max-width: 768px) {
-    /* Adjust container layout */
-    .category-container {
-        flex-direction: column;
-        align-items: center;
-    }
-    /* Adjust details layout */
-    .details {
-        margin-left: 0;
-        margin-top: 10px;
-        width: 100%; /* Full width for mobile */
-    }
-    /* Smaller box size for mobile */
-    .box {
-        width: 150px;
-        height: 150px;
-        padding: 20px;
-        font-size: 1em; /* Smaller font */
-    }
-    /* Adjust header item size */
-    .header-item img {
-        width: 40px;
-        height: 40px;
-    }
-    /* Adjust text size */
-    .header-item span {
-        font-size: 1em;
-    }
-    /* Adjust padding for mobile header */
-    body {
-        background: url('Images/B7.png') no-repeat center center fixed;
-        background-size: cover;
-        background-attachment: scroll;
-        min-height: 100vh;
-    }
-    /* Full-width details for mobile */
-    .details.show {
-        width: 100%;
-    }
-}
+        /* Responsive design for smaller screens */
+        @media (max-width: 768px) {
+            /* Adjust container layout */
+            .category-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            /* Adjust details layout */
+            .details {
+                margin-left: 0;
+                margin-top: 10px;
+                width: 100%; /* Full width for mobile */
+            }
+            /* Smaller box size for mobile */
+            .box {
+                width: 150px;
+                height: 150px;
+                padding: 20px;
+                font-size: 1em; /* Smaller font */
+            }
+            /* Adjust header item size */
+            .header-item img {
+                width: 40px;
+                height: 40px;
+            }
+            /* Adjust text size */
+            .header-item span {
+                font-size: 1em;
+            }
+            /* Adjust padding for mobile header */
+            body {
+                padding-top: 180px;
+            }
+            /* Full-width details for mobile */
+            .details.show {
+                width: 100%;
+            }
+        }
 
         /* Modal Overlay */
         .modal-overlay {
@@ -312,7 +308,7 @@
         /* Modal details content */
         .modal-details-content {
             color: #4e342e;
-            font-size: 1em;
+            font-size: 1.3em;
             text-align: left;
             position: relative;
         }
@@ -497,6 +493,12 @@
                 Wisdom
             </div>
             <div class="details">
+                <div class="title-container">
+                    <div class="image-container pulsing">
+                        <img src="Images/wisdom-image-url.jpg" alt="wisdom Image" class="category-image">
+                    </div>
+                    <h1>Wisdom</h1>
+                </div>
                 Wisdom is the ability to apply knowledge and experience in a thoughtful and meaningful way, helping you make decisions that are aligned with your spiritual growth. It allows you to see the bigger picture and act with understanding and patience.
         
                 <ul>
@@ -529,6 +531,12 @@
                 Inner Peace
             </div>
             <div class="details">
+                <div class="title-container">
+                    <div class="image-container pulsing">
+                        <img src="Images/inner-peace-image-url.jpg" alt="innerPeace Image" class="category-image">
+                    </div>
+                    <h1>Inner Peace</h1>
+                </div>
                 Inner peace is the calm and contentment you feel when you are aligned with your true self and free from the distractions of stress and worry. Achieving inner peace helps you stay centered, no matter what challenges come your way, and is essential for spiritual growth.
         
                 <ul>
@@ -562,6 +570,12 @@
                 Compassion
             </div>
             <div class="details">
+                <div class="title-container">
+                    <div class="image-container pulsing">
+                        <img src="Images/compassion-image-url.jpg" alt="compassion Image" class="category-image">
+                    </div>
+                    <h1>Compassion</h1>
+                </div>
                 Compassion is the ability to understand and share the feelings of others, showing kindness and care even in difficult situations. Practicing compassion not only strengthens your relationships but also helps you grow spiritually by fostering connection and empathy.
         
                 <ul>
@@ -595,6 +609,12 @@
                 Presence
             </div>
             <div class="details">
+                <div class="title-container">
+                    <div class="image-container pulsing">
+                        <img src="Images/presence-image-url.jpg" alt="presence Image" class="category-image">
+                    </div>
+                    <h1>Presence</h1>
+                </div>
                 Presence is the ability to be fully aware and engaged in the current moment. It helps you connect deeply with yourself and others, enhancing your spiritual growth by allowing you to experience life as it unfolds without distractions or judgment.
         
                 <ul>
@@ -630,6 +650,12 @@
                 Imagination
             </div>
             <div class="details">
+                <div class="title-container">
+                    <div class="image-container pulsing">
+                        <img src="Images/imagination-image-url.jpg" alt="imagination Image" class="category-image">
+                    </div>
+                    <h1>Imagination</h1>
+                </div>
                 Imagination is the ability to think beyond the present moment and picture new ideas, possibilities, or outcomes. It helps you envision your spiritual path, dream about a better future, and creatively solve challenges in daily life.
                 
                 <ul>
@@ -663,6 +689,12 @@
                 Creativity
             </div>
             <div class="details">
+                <div class="title-container">
+                    <div class="image-container pulsing">
+                        <img src="Images/creativity-image-url.jpg" alt="creativity Image" class="category-image">
+                    </div>
+                    <h1>Creativity</h1>
+                </div>
                 Creativity is the ability to think outside the box, find new solutions, and express yourself in unique ways. It plays a vital role in your spiritual growth by helping you explore new perspectives and connect with deeper aspects of your inner self.
         
                 <ul>
@@ -697,6 +729,12 @@
                 Willpower
             </div>
             <div class="details">
+                <div class="title-container">
+                    <div class="image-container pulsing">
+                        <img src="Images/willpower-image-url.jpg" alt="willpower Image" class="category-image">
+                    </div>
+                    <h1>Willpower</h1>
+                </div>
                 Willpower is your inner strength that helps you make choices and follow through, even when it’s difficult. It allows you to stay on track with your spiritual goals and make decisions that align with your higher purpose, especially when facing challenges.
         
                 <ul>
@@ -730,6 +768,12 @@
                 Awareness
             </div>
             <div class="details">
+                <div class="title-container">
+                    <div class="image-container pulsing">
+                        <img src="Images/awareness-image-url.jpg" alt="awareness Image" class="category-image">
+                    </div>
+                    <h1>Awareness</h1>
+                </div>
                 Awareness is the ability to notice your thoughts, feelings, and surroundings without being overwhelmed by them. It helps you stay present, mindful, and grounded, guiding your spiritual growth by keeping you in touch with what’s happening in the moment.
                 
                 <ul>
@@ -762,6 +806,12 @@
                 Attention
             </div>
             <div class="details">
+                <div class="title-container">
+                    <div class="image-container pulsing">
+                        <img src="Images/attention-image-url.jpg" alt="attention Image" class="category-image">
+                    </div>
+                    <h1>Attention</h1>
+                </div>
                 Attention is your ability to focus on one thing at a time, helping you give your full energy and presence to what truly matters. It allows you to stay mindful, make better decisions, and connect more deeply with your spiritual journey.
         
                 <ul>
@@ -795,6 +845,12 @@
                 Intuition
             </div>
             <div class="details">
+                <div class="title-container">
+                    <div class="image-container pulsing">
+                        <img src="Images/intuition-image-url.jpg" alt="intuition Image" class="category-image">
+                    </div>
+                    <h1>Intuition</h1>
+                </div>
                 Intuition is the inner sense or “gut feeling” that guides you without needing to think through every detail. It often helps you make quick, spiritually aligned decisions based on a deeper understanding that goes beyond logic.
         
                 <ul>
@@ -828,6 +884,12 @@
                 Memory
             </div>
             <div class="details">
+                <div class="title-container">
+                    <div class="image-container pulsing">
+                        <img src="Images/memory-image-url.jpg" alt="memory Image" class="category-image">
+                    </div>
+                    <h1>Memory</h1>
+                </div>
                 Memory is your ability to store and recall past experiences and lessons. It helps guide your present actions by reminding you of what you’ve learned and how you’ve grown, both spiritually and personally.
         
                 <ul>
@@ -861,6 +923,12 @@
                 Thoughts
             </div>
             <div class="details">
+                <div class="title-container">
+                    <div class="image-container pulsing">
+                        <img src="Images/thoughts-image-url.jpg" alt="thoughts Image" class="category-image">
+                    </div>
+                    <h1>Thoughts</h1>
+                </div>
                 Thoughts are the ideas and beliefs that shape how you see the world and yourself. They can either help you grow spiritually or hold you back, depending on whether your thoughts are positive and supportive or negative and limiting.
         
                 <ul>
@@ -894,6 +962,12 @@
                 Emotions
             </div>
             <div class="details">
+                <div class="title-container">
+                    <div class="image-container pulsing">
+                        <img src="Images/emotions-image-url.jpg" alt="emotions Image" class="category-image">
+                    </div>
+                    <h1>Emotions</h1>
+                </div>
                 Emotions are the feelings that arise in response to events, thoughts, or experiences. They can guide you toward a deeper understanding of yourself and your spiritual path, or they can overwhelm you if left unchecked. Learning to manage emotions is key to spiritual growth and inner peace.
         
                 <ul>
@@ -926,6 +1000,12 @@
                         Perception
                     </div>
                     <div class="details">
+                        <div class="title-container">
+                            <div class="image-container pulsing">
+                                <img src="Images/perception-image-url.jpg" alt="perception Image" class="category-image">
+                            </div>
+                            <h1>Perception</h1>
+                        </div>
                         Perception is how you interpret the world around you through your senses, thoughts, and experiences. It shapes how you understand situations and people, influencing your spiritual growth by helping you see things clearly or, sometimes, through a distorted lens.
                 
                         <ul>
@@ -957,6 +1037,12 @@
                 Feelings
             </div>
             <div class="details">
+                <div class="title-container">
+                    <div class="image-container pulsing">
+                        <img src="Images/feelings-image-url.jpg" alt="feelings Image" class="category-image">
+                    </div>
+                    <h1>Feelings</h1>
+                </div>
                 Feelings are the emotions you experience in response to events, thoughts, and interactions. They are an important part of your inner life and can guide you toward greater spiritual awareness if you learn to understand and manage them with intention.
         
                 <ul>
@@ -989,6 +1075,12 @@
                 Body Sensations
             </div>
             <div class="details">
+                <div class="title-container">
+                    <div class="image-container pulsing">
+                        <img src="Images/bodySensations-image-url.jpg" alt="bodySensations Image" class="category-image">
+                    </div>
+                    <h1>Body sensations</h1>
+                </div>
                 Body sensations are the physical feelings you experience, like hunger, pain, or fatigue. These sensations are signals from your body, helping you stay connected to your physical and spiritual well-being by guiding you to take care of your needs.
         
                 <ul>
@@ -1022,6 +1114,12 @@
                 Instincts
             </div>
             <div class="details">
+                <div class="title-container">
+                    <div class="image-container pulsing">
+                        <img src="Images/instincts-image-url.jpg" alt="instincts Image" class="category-image">
+                    </div>
+                    <h1>Instincts</h1>
+                </div>
                 Instincts are natural reactions or impulses that help you respond quickly to situations, often focused on survival or self-preservation. While instincts can protect you, it’s important to balance them with mindfulness to avoid acting out of fear or impulse in ways that block spiritual growth.
         
                 <ul>
